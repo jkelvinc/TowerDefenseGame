@@ -6,15 +6,20 @@ using UnityEngine.EventSystems;
 public class BuildingSpot : MonoBehaviour, IPointerClickHandler
 {
 	[SerializeField]
-	private BuildPanel buildingCommands;
+	private BuildPanel buildPanel;
 
 
 	private void Start()
 	{
-		// EventDispatcher.Instance.RegisterEvent(GameEvent.BuildingCommandExecuted, HandleBuildingCommandExecuted);
+		this.buildPanel.OnBuildingCreated += HandleBuildingCreated;
 	}
 
-	private void HandleBuildingCommandExecuted(Dictionary<string, object> eventParams)
+	private void OnDestroy()
+	{
+		this.buildPanel.OnBuildingCreated -= HandleBuildingCreated;
+	}
+
+	private void HandleBuildingCreated()
 	{
 		gameObject.GetComponent<Renderer>().enabled = false;
 	}
@@ -22,9 +27,9 @@ public class BuildingSpot : MonoBehaviour, IPointerClickHandler
 	#region IPointerClickHandler Implementation
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		if (buildingCommands != null)
+		if (this.buildPanel != null)
 		{
-			buildingCommands.Show();
+			this.buildPanel.Show();
 		}
 	}
 	#endregion

@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 114251381424133252}
   - component: {fileID: 114517841841228186}
   m_Layer: 5
-  m_Name: BuildingCommands
+  m_Name: BuildPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1018160931108648}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.04, y: -1.97, z: 0}
+  m_LocalPosition: {x: -7.04, y: 2.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224153501959917878}
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58ceca8cb0684cac8bdff2b64051f8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingCommands: {fileID: 114517841841228186}
+  buildPanel: {fileID: 114517841841228186}
 --- !u!114 &114925942316787536
 MonoBehaviour:
   m_ObjectHideFlags: 1

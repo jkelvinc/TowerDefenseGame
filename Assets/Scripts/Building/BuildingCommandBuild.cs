@@ -21,7 +21,7 @@ public class BuildingCommandBuild : MonoBehaviour, ICommand, IPointerClickHandle
 
 		if (CanBuild(cost))
 		{
-			ResourceManager.Instance.SpendResource(ResourceType.Currency, cost);
+			ResourceManager.Instance.DecreaseResource(ResourceType.Currency, cost);
 
 			GameObject buildingGO = Instantiate(buildingPrefab, buildingHolder.transform);
 			buildingGO.transform.localPosition = Vector3.zero;

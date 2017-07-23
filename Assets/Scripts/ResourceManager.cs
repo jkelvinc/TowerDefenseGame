@@ -31,17 +31,38 @@ public class ResourceManager : Singleton<ResourceManager>
 	public int GetResourceValue(ResourceType type)
 	{
 		var resourceInfo = this.resourceInfo.Find(x => x.Type == type);
-		return resourceInfo.Value;
+		return resourceInfo == null ? 0 : resourceInfo.Value;
 	}
 
-	public void SpendResource(ResourceType type, int value)
+	public void DecreaseResource(ResourceType type, int value)
 	{
-		var resourceInfo = this.resourceInfo.Find(x => x.Type == ResourceType.Currency);
-		resourceInfo.Value -= value;
-
-		if (OnResourceChanged != null)
+		var resourceInfo = this.resourceInfo.Find(x => x.Type == type);
+		if (resourceInfo != null)
 		{
-			OnResourceChanged(type, resourceInfo.Value);
+			resourceInfo.Value -= value;
+			if (resourceInfo.Value < 0)
+			{
+				resourceInfo.Value = 0;
+			}
+
+			if (OnResourceChanged != null)
+			{
+				OnResourceChanged(type, resourceInfo.Value);
+			}
+		}
+	}
+
+	public void IncreaseResource(ResourceType type, int value)
+	{
+		var resourceInfo = this.resourceInfo.Find(x => x.Type == type);
+		if (resourceInfo != null)
+		{
+			resourceInfo.Value += value;
+
+			if (OnResourceChanged != null)
+			{
+				OnResourceChanged(type, resourceInfo.Value);
+			}
 		}
 	}
 }

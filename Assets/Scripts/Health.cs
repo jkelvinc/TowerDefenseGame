@@ -23,7 +23,11 @@ public class Health : MonoBehaviour
 	private void Awake()
 	{
 		this.currentHealth = this.maxHealth;
-		this.originalVisualScaleX = this.visual.localScale.x;
+
+		if (this.visual != null)
+		{
+			this.originalVisualScaleX = this.visual.localScale.x;
+		}
 	}
 
 	public void ReduceHealth(int value)
@@ -44,8 +48,11 @@ public class Health : MonoBehaviour
 
 	private void UpdateVisual()
 	{
-		Vector3 currentScale = this.visual.localScale;
-		currentScale.x = ((float)this.currentHealth / (float)this.maxHealth) * this.originalVisualScaleX;
-		this.visual.localScale = currentScale;	
+		if (this.visual != null)
+		{
+			Vector3 currentScale = this.visual.localScale;
+			currentScale.x = ((float)this.currentHealth / (float)this.maxHealth) * this.originalVisualScaleX;
+			this.visual.localScale = currentScale;	
+		}
 	}
 }

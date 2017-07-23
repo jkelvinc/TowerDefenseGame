@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 54682249971795182}
   - component: {fileID: 114944613384933016}
   - component: {fileID: 114407518735914218}
+  - component: {fileID: 114114236832018498}
   m_Layer: 0
   m_Name: Enemy03
   m_TagString: Enemy
@@ -160,6 +161,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114114236832018498
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896862518083542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b88f62775944fc7a0e06808ad560c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderTag: PlayerBase
+  destroyDelayInSeconds: 1
 --- !u!114 &114407518735914218
 MonoBehaviour:
   m_ObjectHideFlags: 1

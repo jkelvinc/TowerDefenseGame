@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 54279238498185630}
   - component: {fileID: 114004195154409482}
   - component: {fileID: 114097179171791514}
+  - component: {fileID: 114665398625981540}
   m_Layer: 0
   m_Name: Enemy04
   m_TagString: Enemy
@@ -184,6 +185,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863296a43f8be481b9ba762fd925f28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114665398625981540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1431707625200770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b88f62775944fc7a0e06808ad560c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderTag: PlayerBase
+  destroyDelayInSeconds: 1
 --- !u!114 &114967249897232990
 MonoBehaviour:
   m_ObjectHideFlags: 1

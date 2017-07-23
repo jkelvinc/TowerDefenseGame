@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212237614079759496}
   - component: {fileID: 135031158673615654}
   - component: {fileID: 114728031446612660}
+  - component: {fileID: 114771952081796988}
   m_Layer: 0
   m_Name: Tower02
   m_TagString: Untagged
@@ -56,6 +57,18 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1369029846303688, guid: e0f222da96d15478ab020df8025ad27e,
     type: 2}
   rateOfFire: 2
+--- !u!114 &114771952081796988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1852593120993612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff88eab32492494197b5bb1ab192014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 10
 --- !u!135 &135031158673615654
 SphereCollider:
   m_ObjectHideFlags: 1

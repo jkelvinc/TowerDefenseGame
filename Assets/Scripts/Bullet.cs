@@ -11,6 +11,8 @@ public class Bullet : MonoBehaviour
 	private Vector3 startPosition;
 	private float startTime;
 	private float totalDistance;
+	private int damage;
+
 
 	private void FixedUpdate()
 	{
@@ -27,13 +29,18 @@ public class Bullet : MonoBehaviour
 					var health = this.target.GetComponent<Health>();
 					if (health != null)
 					{
-						health.ReduceHealth(5);
+						health.ReduceHealth(this.damage);
 					}
 				}
 				
 				Destroy(gameObject);
 			}
 		}
+	}
+
+	public void SetDamage(int damage)
+	{
+		this.damage = damage;
 	}
 
 	public void Fire(GameObject target)

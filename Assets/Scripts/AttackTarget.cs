@@ -77,8 +77,12 @@ public class AttackTarget : MonoBehaviour
 			return;
 		}
 
-		var bullet = Instantiate(this.bulletPrefab, this.transform.position, this.transform.rotation);
-		bullet.GetComponent<Bullet>().Fire(this.currentTarget);
+		var tower = GetComponentInChildren<Tower>();
+
+		var bulletGO = Instantiate(this.bulletPrefab, this.transform.position, this.transform.rotation);
+		var bullet = bulletGO.GetComponent<Bullet>();
+		bullet.SetDamage(tower.AttackDamage);
+		bullet.Fire(this.currentTarget);
 	}
 
 	private void HandleTargetDestroyed(Unit unit)

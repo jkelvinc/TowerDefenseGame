@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class AttackTarget : MonoBehaviour 
 {
+	[SerializeField]
+	private GameObject bulletPrefab;
+
+	[SerializeField]
+	private float rateOfFire = 2f;
+
 	private List<GameObject> targets = new List<GameObject>();
 
 	private GameObject currentTarget;
+	private float previousRateOfFireTime;
 
 
 	private void FixedUpdate()
@@ -27,6 +34,12 @@ public class AttackTarget : MonoBehaviour
 			
 			Quaternion rotation = Quaternion.AngleAxis(rotationAngle - 90f, Vector3.forward);
 			transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.fixedDeltaTime * 5f);
+
+			if (Time.time - this.previousRateOfFireTime > this.rateOfFire)
+			{
+				FireAtTarget();
+				this.previousRateOfFireTime = Time.time;
+			}
 		}
 	}
 
@@ -49,5 +62,16 @@ public class AttackTarget : MonoBehaviour
 
 			this.targets.Remove(other.gameObject);
 		}
+	}
+
+	private void FireAtTarget()
+	{
+		if (this.currentTarget == null)
+		{
+			return;
+		}
+
+		var bullet = Instantiate(this.bulletPrefab, this.transform.position, this.transform.rotation);
+		bullet.GetComponent<Bullet>().Fire(this.currentTarget);
 	}
 }

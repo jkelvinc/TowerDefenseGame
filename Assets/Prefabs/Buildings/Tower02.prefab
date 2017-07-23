@@ -53,6 +53,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df5a314906da48a2b5c9aa3c90b0d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 1369029846303688, guid: e0f222da96d15478ab020df8025ad27e,
+    type: 2}
+  rateOfFire: 2
 --- !u!135 &135031158673615654
 SphereCollider:
   m_ObjectHideFlags: 1

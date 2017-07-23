@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameEvent
+public static class GameEvents
 {
-	BuildingSpotClicked,
-	BuildingCommandExecuted
-};
+	public static readonly string StartGame = "StartGame";
+}

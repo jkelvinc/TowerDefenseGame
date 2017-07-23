@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour 
 {
@@ -23,13 +24,28 @@ public class EnemySpawner : MonoBehaviour
 
 	private int currentWaveIndex;
 
+	private UnityAction startWaveAction;
 
 	private void Start()
 	{
-		StartCoroutine(StartWave());
+		this.startWaveAction = new UnityAction(StartWave);
+		EventManager.Instance.StartListening(GameEvents.StartGame, this.startWaveAction);
 	}
 
-	private IEnumerator StartWave()
+	private void OnDestroy()
+	{
+		if (EventManager.Exists)
+		{
+			EventManager.Instance.StopListening(GameEvents.StartGame, this.startWaveAction);
+		}
+	}
+
+	private void StartWave()
+	{
+		StartCoroutine(StartWaveCoroutine());
+	}
+
+	private IEnumerator StartWaveCoroutine()
 	{
 		var waveInfo = this.waveInfo[this.currentWaveIndex];
 

@@ -7,19 +7,19 @@ public delegate void EventDelegate(Dictionary<string, object> eventParams);
 
 public class EventDispatcher : Singleton<EventDispatcher> 
 {
-	private Dictionary<GameEvent, EventDelegate> events = new Dictionary<GameEvent, EventDelegate>();
+	private Dictionary<string, System.Delegate> events = new Dictionary<string, System.Delegate>();
 
 	protected override void OnSingletonAwake()
 	{
 		
 	}
 
-	public void RegisterEvent(GameEvent eventName, EventDelegate listener)
+	public void RegisterEvent(string eventName, EventDelegate listener)
 	{
-		EventDelegate result;
+		System.Delegate result;
 		if (this.events.TryGetValue(eventName, out result))
 		{
-			result += listener;
+			this.events[eventName] = System.Delegate.Combine(result, listener);
 		}
 		else
 		{
@@ -29,24 +29,25 @@ public class EventDispatcher : Singleton<EventDispatcher>
 		Debug.Log("[EventDispatcher] RegisterEvent() - EventName: " + eventName);
 	}
 
-	public void UnregisterEvent(GameEvent eventName, EventDelegate listener)
+	public void UnregisterEvent(string eventName, EventDelegate listener)
 	{
-		EventDelegate result;
+		System.Delegate result;
 		if (this.events.TryGetValue(eventName, out result))
 		{
-			result -= listener;
+			// result -= listener;
+			System.Delegate.Remove(result, listener);
 		}
 	}
 
-	public void DispatchEvent(GameEvent eventName, Dictionary<string, object> eventParams)
+	public void DispatchEvent(string eventName, Dictionary<string, object> eventParams)
 	{
-		EventDelegate result;
+		System.Delegate result;
 		if (this.events.TryGetValue(eventName, out result))
 		{
 			if (result != null)
 			{
 				Debug.Log("[EventDispatcher] DispatchEvent() - EventName: " + eventName);
-				result(eventParams);
+				result.DynamicInvoke(eventParams);
 			}
 		}
 	}

@@ -17,8 +17,26 @@ public class BuildingCommandBuild : MonoBehaviour, ICommand, IPointerClickHandle
 
 	private void CreateBuilding()
 	{
-		GameObject buildingGO = Instantiate(buildingPrefab, buildingHolder.transform);
-		buildingGO.transform.localPosition = Vector3.zero;
+		int cost = GetBuildingCost();
+
+		if (CanBuild(cost))
+		{
+			ResourceManager.Instance.SpendResource(ResourceType.Currency, cost);
+
+			GameObject buildingGO = Instantiate(buildingPrefab, buildingHolder.transform);
+			buildingGO.transform.localPosition = Vector3.zero;
+		}
+	}
+
+	private bool CanBuild(int cost)
+	{
+		return (ResourceManager.Instance.GetResourceValue(ResourceType.Currency) - cost > 0);
+	}
+
+	private int GetBuildingCost()
+	{
+		var cost = buildingPrefab.GetComponent<Cost>();
+		return (cost == null) ? 0 : cost.Value;
 	}
 	
 	#region IPointerClickHandler Implementation

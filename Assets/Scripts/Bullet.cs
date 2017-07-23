@@ -21,6 +21,16 @@ public class Bullet : MonoBehaviour
 			
 			if (HasReachedTarget())
 			{
+				// target may have been destroyed by another bullet
+				if (this.target !=  null)
+				{
+					var health = this.target.GetComponent<Health>();
+					if (health != null)
+					{
+						health.ReduceHealth(5);
+					}
+				}
+				
 				Destroy(gameObject);
 			}
 		}

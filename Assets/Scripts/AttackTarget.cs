@@ -48,6 +48,12 @@ public class AttackTarget : MonoBehaviour
 		if (!this.targets.Contains(other.gameObject))
 		{
 			this.targets.Add(other.gameObject);
+
+			var unit = other.GetComponent<Unit>();
+			if (unit != null)
+			{
+				unit.OnUnitDestroyed += HandleTargetDestroyed;
+			}
 		}
 	}
 
@@ -73,5 +79,18 @@ public class AttackTarget : MonoBehaviour
 
 		var bullet = Instantiate(this.bulletPrefab, this.transform.position, this.transform.rotation);
 		bullet.GetComponent<Bullet>().Fire(this.currentTarget);
+	}
+
+	private void HandleTargetDestroyed(Unit unit)
+	{
+		if (this.currentTarget == unit.gameObject)
+		{
+			this.currentTarget = null;
+		}
+
+		if (this.targets.Contains(unit.gameObject))
+		{
+			this.targets.Remove(unit.gameObject);
+		}
 	}
 }

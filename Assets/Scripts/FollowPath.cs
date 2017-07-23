@@ -57,7 +57,7 @@ public class FollowPath : MonoBehaviour
 		Vector3 previousPos = (this.previousNode == null) ? transform.position : this.previousNode.transform.position;
 		Vector3 direction = (this.targetNode.transform.position - previousPos).normalized;
 		
-		float rotationAngle = Mathf.Atan2(direction.y, direction.x) * 180f / Mathf.PI;
+		float rotationAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.AngleAxis(rotationAngle, Vector3.forward);
 	}
 

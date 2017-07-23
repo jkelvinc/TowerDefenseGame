@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4252121464715108}
   - component: {fileID: 212852090161306968}
   - component: {fileID: 114741261188427846}
+  - component: {fileID: 65098958630419738}
+  - component: {fileID: 54682249971795182}
   m_Layer: 0
   m_Name: Enemy03
   m_TagString: Untagged
@@ -41,6 +43,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54682249971795182
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896862518083542}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &65098958630419738
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896862518083542}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114741261188427846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d4e4893d96a4ef98085c8a861bd996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 1
 --- !u!212 &212852090161306968
 SpriteRenderer:
   m_ObjectHideFlags: 1

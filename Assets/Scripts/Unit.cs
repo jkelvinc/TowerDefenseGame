@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Unit : MonoBehaviour 
 {
 	public event Action<Unit> OnUnitDestroyed;
 
 	private Health health;
+
+	private UnityAction gameLostAction;
 
 
 	private void Awake()
@@ -17,6 +20,25 @@ public class Unit : MonoBehaviour
 		{
 			this.health.OnHealthChanged += HandleHealthChanged;
 		}
+	}
+
+	private void Start()
+	{
+		this.gameLostAction = new UnityAction(HandleGameLost);
+		EventManager.Instance.StartListening(GameEvents.GameLost, this.gameLostAction);
+	}
+
+	private void OnDestroy()
+	{
+		if (EventManager.Exists)
+		{
+			EventManager.Instance.StopListening(GameEvents.GameLost, this.gameLostAction);
+		}
+	}
+
+	private void HandleGameLost()
+	{
+		Destroy(gameObject);
 	}
 
 	private void HandleHealthChanged(int currentHealth)

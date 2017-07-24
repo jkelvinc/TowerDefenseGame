@@ -20,18 +20,17 @@ public class LevelManager : MonoBehaviour
 	private GameObject playerBase;
 
 	[SerializeField]
-	private List<LoseCondition> loseConditions;
-
-	[SerializeField]
 	private GameObject messagePanel;
 
 	[SerializeField]
 	private Text messageText;
 
-	// [SerializeField]
-	// private List<WinCondition> winConditions;
 
 	private GameState state;
+		
+	private List<GameCondition> loseConditions = new List<GameCondition>();
+
+	private List<GameCondition> winConditions = new List<GameCondition>();
 
 	public GameState State 
 	{ 
@@ -41,9 +40,12 @@ public class LevelManager : MonoBehaviour
 			var oldState = this.state;
 			this.state = value;
 
-			if (this.state != value)
+			if (oldState != this.state)
 			{
-				OnStateChanged(this.state);
+				if (OnStateChanged != null)
+				{
+					OnStateChanged(this.state);
+				}
 			}
 		}
 	}
@@ -51,11 +53,21 @@ public class LevelManager : MonoBehaviour
 
 	private void Awake()
 	{
-		var loseConditions = GetComponentsInChildren<LoseCondition>();
-		this.loseConditions = new List<LoseCondition>(loseConditions);
-		foreach (var loseCondition in this.loseConditions)
+		var gameConditions = GetComponentsInChildren<GameCondition>();
+		for (int i = 0; i < gameConditions.Length; ++i)
 		{
-			loseCondition.OnConditionChanged += HandleLoseConditionChanged;
+			switch (gameConditions[i].Type)
+			{
+				case GameCondition.GameConditionType.Win:
+				gameConditions[i].OnConditionChanged += HandleGameConditionChanged;
+				this.winConditions.Add(gameConditions[i]);
+				break;
+
+				case GameCondition.GameConditionType.Lose:
+				gameConditions[i].OnConditionChanged += HandleGameConditionChanged;
+				this.loseConditions.Add(gameConditions[i]);
+				break;
+			}
 		}
 	}
 
@@ -65,7 +77,7 @@ public class LevelManager : MonoBehaviour
 		{
 			foreach (var loseCondition in this.loseConditions)
 			{
-				loseCondition.OnConditionChanged -= HandleLoseConditionChanged;
+				loseCondition.OnConditionChanged -= HandleGameConditionChanged;
 			}
 		}
 	}
@@ -77,13 +89,35 @@ public class LevelManager : MonoBehaviour
 		EventManager.Instance.TriggerEvent(GameEvents.StartGame);
 	}
 
-	private void HandleLoseConditionChanged()
+	private void HandleGameConditionChanged(GameCondition.GameConditionType gameConditonType)
 	{
-		// if a lose condition has changed, check all of them to see if we lost the game
+		// if a game condition has changed, check all of them to see if we fulfilled them
+		if (gameConditonType == GameCondition.GameConditionType.Lose)
+		{
+			CheckLoseConditions();
+		}
+		else if (gameConditonType == GameCondition.GameConditionType.Win)
+		{
+			// check lose conditions first in case we managed to satisfy all lose conditions as well
+			// in this case prioritise lost
+			bool lost = CheckLoseConditions();
+			if (!lost)
+			{
+				CheckWinConditions();
+			}
+		}
+	}
+
+	/// <summary>
+	/// Check lose conditions
+	/// </summary>
+	/// <returns>true if all lose conditions were fulfilled</returns>
+	private bool CheckLoseConditions()
+	{
 		int count = 0;
 		foreach (var loseCondition in this.loseConditions)
 		{
-			if (loseCondition.FulfilledCondition)
+			if (loseCondition.IsFulfilled)
 			{
 				++count;
 			}
@@ -91,12 +125,41 @@ public class LevelManager : MonoBehaviour
 
 		if (count == this.loseConditions.Count)
 		{
-			// we lost
 			this.State = GameState.Lose;
 			ShowMessage("YOU LOSE");
 
 			EventManager.Instance.TriggerEvent(GameEvents.GameLost);
+			return true;
 		}
+
+		return false;
+	}
+
+	/// <summary>
+	/// Check win conditions
+	/// </summary>
+	/// <returns>true if all win conditions were fulfilled</returns>
+	private bool CheckWinConditions()
+	{
+		int count = 0;
+		foreach (var winCondition in this.winConditions)
+		{
+			if (winCondition.IsFulfilled)
+			{
+				++count;
+			}
+		}
+
+		if (count == this.winConditions.Count)
+		{
+			this.State = GameState.Lose;
+			ShowMessage("YOU WIN");
+
+			EventManager.Instance.TriggerEvent(GameEvents.GameWon);
+			return true;
+		}
+
+		return false;
 	}
 
 	private void ShowMessage(string text)

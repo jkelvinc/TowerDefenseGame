@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoseConditionLives : LoseCondition 
+public class LoseConditionLives : GameCondition 
 {
 
 	private void Start()
@@ -12,7 +12,7 @@ public class LoseConditionLives : LoseCondition
 
 	private void HandleResourceChanged(ResourceType type, int value)
 	{
-		this.FulfilledCondition = (type == ResourceType.Live) && (value == 0);
+		this.IsFulfilled = (type == ResourceType.Live) && (value == 0);
 
 		RaiseConditionChangedEvent();
 	}

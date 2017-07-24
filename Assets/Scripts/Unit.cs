@@ -36,6 +36,17 @@ public class Unit : MonoBehaviour
 		}
 	}
 
+
+	public void DestroyUnit()
+	{
+		if (OnUnitDestroyed != null)
+		{
+			OnUnitDestroyed(this);
+		}
+
+		Destroy(gameObject);
+	}
+
 	private void HandleGameLost()
 	{
 		Destroy(gameObject);
@@ -45,12 +56,7 @@ public class Unit : MonoBehaviour
 	{
 		if (currentHealth == 0)
 		{
-			if (OnUnitDestroyed != null)
-			{
-				OnUnitDestroyed(this);
-			}
-
-			Destroy(gameObject);
+			DestroyUnit();
 		}
 	}
 }

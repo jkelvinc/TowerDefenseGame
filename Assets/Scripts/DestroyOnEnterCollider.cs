@@ -19,16 +19,21 @@ public class DestroyOnEnterCollider : MonoBehaviour
 			{
 				StartCoroutine(DelayedDestroy());
 			}
-			else
-			{
-				Destroy(gameObject);
-			}
 		}
 	}
 
 	private IEnumerator DelayedDestroy()
 	{
 		yield return new WaitForSeconds(destroyDelayInSeconds);
-		Destroy(gameObject);
+
+		var unit = GetComponent<Unit>();
+		if (unit != null)
+		{
+			unit.DestroyUnit();
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
 	}
 }

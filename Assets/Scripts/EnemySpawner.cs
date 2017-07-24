@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour 
 {
+	public event System.Action OnAllWavesCompleted; 
+
 	[System.Serializable]
 	public class WaveInfo
 	{
@@ -20,15 +22,21 @@ public class EnemySpawner : MonoBehaviour
 	private List<WaveInfo> waveInfo;
 
 	[SerializeField]
+	private float waveIntervalInSeconds;
+
+	[SerializeField]
 	private Path path;
 
-	private int currentWaveIndex;
+	private int currentWaveIndex = -1;
 
 	private UnityAction startWaveAction;
 
+	private List<GameObject> enemiesCreated = new List<GameObject>();
+
+
 	private void Start()
 	{
-		this.startWaveAction = new UnityAction(StartWave);
+		this.startWaveAction = new UnityAction(StartNextWave);
 		EventManager.Instance.StartListening(GameEvents.StartGame, this.startWaveAction);
 	}
 
@@ -40,14 +48,39 @@ public class EnemySpawner : MonoBehaviour
 		}
 	}
 
-	private void StartWave()
+	private void StartNextWave()
 	{
-		StartCoroutine(StartWaveCoroutine());
+		var waveInfo = GetNextWave();
+		if (waveInfo == null)
+		{
+			if (this.OnAllWavesCompleted != null)
+			{
+				this.OnAllWavesCompleted();
+			}
+		}
+		else
+		{
+			StartCoroutine(StartWaveCoroutine(waveInfo));
+		}
 	}
 
-	private IEnumerator StartWaveCoroutine()
+	private WaveInfo GetNextWave()
 	{
-		var waveInfo = this.waveInfo[this.currentWaveIndex];
+		++this.currentWaveIndex;
+		if (this.currentWaveIndex < this.waveInfo.Count)
+		{
+			return this.waveInfo[this.currentWaveIndex];
+		}
+
+		this.currentWaveIndex = -1;
+		return null;
+	}
+
+	private IEnumerator StartWaveCoroutine(WaveInfo waveInfo)
+	{
+		yield return new WaitForSeconds(this.waveIntervalInSeconds);
+
+		this.enemiesCreated.Clear();
 
 		for (int i = 0; i < waveInfo.NumEnemiesToSpawn; ++i)
 		{
@@ -62,10 +95,34 @@ public class EnemySpawner : MonoBehaviour
 	private void CreateEnemy(GameObject enemyPrefab)
 	{
 		var enemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
-		var followPath = enemy.GetComponent<FollowPath>();
-		if (followPath != null)
+		if (enemy != null)
 		{
-			followPath.Execute(this.path);
+			this.enemiesCreated.Add(enemy);
+
+			var enemyUnit = enemy.GetComponent<Unit>();
+			if (enemyUnit != null)
+			{
+				enemyUnit.OnUnitDestroyed += HandleUnitDestroyed;		
+			}
+
+			var followPath = enemy.GetComponent<FollowPath>();
+			if (followPath != null)
+			{
+				followPath.Execute(this.path);
+			}
+		}
+	}
+
+	private void HandleUnitDestroyed(Unit unit)
+	{
+		if (this.enemiesCreated.Contains(unit.gameObject))
+		{
+			this.enemiesCreated.Remove(unit.gameObject);
+		}
+
+		if (this.enemiesCreated.Count == 0)
+		{
+			StartNextWave();
 		}
 	}
 }

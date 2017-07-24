@@ -8,7 +8,7 @@ public class AttackTarget : MonoBehaviour
 	private GameObject bulletPrefab;
 
 	[SerializeField]
-	private float rateOfFire = 2f;
+	private float fireInterval = 2f;
 
 	private List<GameObject> targets = new List<GameObject>();
 
@@ -35,7 +35,7 @@ public class AttackTarget : MonoBehaviour
 			Quaternion rotation = Quaternion.AngleAxis(rotationAngle - 90f, Vector3.forward);
 			transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.fixedDeltaTime * 5f);
 
-			if (Time.time - this.previousRateOfFireTime > this.rateOfFire)
+			if (Time.time - this.previousRateOfFireTime > this.fireInterval)
 			{
 				FireAtTarget();
 				this.previousRateOfFireTime = Time.time;

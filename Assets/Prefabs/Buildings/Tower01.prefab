@@ -81,7 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1369029846303688, guid: e0f222da96d15478ab020df8025ad27e,
     type: 2}
-  rateOfFire: 4
+  fireInterval: 0.8
 --- !u!135 &135616994620735780
 SphereCollider:
   m_ObjectHideFlags: 1

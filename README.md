@@ -2,7 +2,7 @@
 
 This project has 1 level named Level_1
 
-Units:
+Enemy Units:
 There are 4 different enemy units with the following varying properties:
 - health
 - movement speed
@@ -44,16 +44,17 @@ Bullets:
 There are 2 types of bullets: Normal and Slow
 
 Managers
-LevelManager
+- LevelManager
 This manager looks at the Win/Lose conditions and starts/stops the game
+It then triggers the proper event (GameWon, GameLost) based on those conditions
 
-ResourceManager
-Holds values for the different resources used in the game (Lives, Currency)
+- ResourceManager
+Manages the values for the different resources used in the game (Lives, Currency)
 
-Winning/Losing
-A game is won is all WinConditions are fulfilled
-A game is lost if all LoseConditions are fulfilled
-WinConditions/LoseConditions extend GameCondition
+Winning/Losing  
+A game is won is all WinConditions are fulfilled  
+A game is lost if all LoseConditions are fulfilled  
+WinConditions/LoseConditions extend GameCondition  
 New Win/Lose Conditions can easily be created as long as they return the proper value of IsFullfilled
 
 Map
@@ -61,10 +62,16 @@ The map is composed of
 - a series of PathNodes that make up a Path
 - EnemySpawners that are linked to a specific Path
 
+Messaging/Events  
+Messages/Events are registered/unregistered from the Event Manager
+All events can be found in GameEvents
+There are currently 3 events: StartGame, GameWon and GameLost
+
 
 
 Resources:
 https://opengameart.org/content/tower-sprite-tower-defense-asset-for-2d-games
 
 http://ask4asset.com/tower-defense-free-art-pack/
+
 

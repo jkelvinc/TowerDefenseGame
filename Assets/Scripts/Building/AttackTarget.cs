@@ -18,11 +18,11 @@ public class AttackTarget : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (this.targets.Count > 0)
+		if (this.currentTarget == null)
 		{
-			if (this.currentTarget == null)
+			if (this.targets.Count > 0)
 			{
-				// target whoever was first
+				// target whoever is first in the list
 				this.currentTarget = this.targets[0];
 			}
 		}
@@ -90,11 +90,19 @@ public class AttackTarget : MonoBehaviour
 		if (this.currentTarget == unit.gameObject)
 		{
 			this.currentTarget = null;
+
+			if (this.targets.Count > 0)
+			{
+				this.currentTarget = this.targets[0];
+			}
 		}
 
 		if (this.targets.Contains(unit.gameObject))
 		{
 			this.targets.Remove(unit.gameObject);
 		}
+
+		// clean list
+		this.targets.RemoveAll(x => x == null);
 	}
 }

@@ -10,6 +10,12 @@ public class FollowPath : MonoBehaviour
 	[SerializeField]
 	private GameObject visual;
 
+	public float Speed
+	{
+		get { return this.speed; }
+		set { this.speed = value; }
+	}
+
 	private Path path;
 	private PathNode targetNode;
 	private PathNode previousNode;

@@ -692,7 +692,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Size: {x: 0.75, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &549366386
 SpriteRenderer:
@@ -1190,7 +1190,7 @@ GameObject:
   - component: {fileID: 829540021}
   - component: {fileID: 829540020}
   m_Layer: 0
-  m_Name: EventDispatcher
+  m_Name: EventManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1204,7 +1204,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 829540019}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c10c0138e28eb49d38f775d71eaf856d, type: 3}
+  m_Script: {fileID: 11500000, guid: 2fc4d6ac2d710411eaa65755f4ea3545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &829540021

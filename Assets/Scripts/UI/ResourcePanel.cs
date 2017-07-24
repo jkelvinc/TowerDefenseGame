@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ResoucePanel : MonoBehaviour 
+public class ResourcePanel : MonoBehaviour 
 {
 	[SerializeField]
 	private Text livesValueText;

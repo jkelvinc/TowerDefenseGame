@@ -22,6 +22,7 @@ public class BuildingSpot : MonoBehaviour, IPointerClickHandler
 	private void HandleBuildingCreated()
 	{
 		gameObject.GetComponent<Renderer>().enabled = false;
+		enabled = false;
 	}
 
 	#region IPointerClickHandler Implementation

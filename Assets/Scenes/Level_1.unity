@@ -2047,7 +2047,7 @@ MonoBehaviour:
   - NumEnemiesToSpawn: 10
     MinSpawnDelayInSeconds: 1
     MaxSpawnDelayInSeconds: 3
-  waveIntervalInSeconds: 0
+  waveIntervalInSeconds: 1
   path: {fileID: 511403272}
 --- !u!1001 &1206509751
 Prefab:
@@ -2600,7 +2600,7 @@ MonoBehaviour:
   - NumEnemiesToSpawn: 10
     MinSpawnDelayInSeconds: 1
     MaxSpawnDelayInSeconds: 3
-  waveIntervalInSeconds: 0
+  waveIntervalInSeconds: 1
   path: {fileID: 1026878434}
 --- !u!1001 &1498421662
 Prefab:

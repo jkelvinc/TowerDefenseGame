@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 114004195154409482}
   - component: {fileID: 114097179171791514}
   - component: {fileID: 114665398625981540}
+  - component: {fileID: 114098850869198376}
   m_Layer: 0
   m_Name: Enemy04
   m_TagString: Enemy
@@ -172,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee73f504007aa457baeabe76d9470779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 150
   visual: {fileID: 4824318347347178}
 --- !u!114 &114097179171791514
 MonoBehaviour:
@@ -185,6 +186,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863296a43f8be481b9ba762fd925f28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114098850869198376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1431707625200770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6478b9bbb97724763b247254d0e14edc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  amount: 40
+  operation: 0
 --- !u!114 &114665398625981540
 MonoBehaviour:
   m_ObjectHideFlags: 1

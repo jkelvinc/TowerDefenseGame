@@ -56,6 +56,12 @@ public class Unit : MonoBehaviour
 	{
 		if (currentHealth == 0)
 		{
+			var changeResourceAmount = GetComponent<ChangeResourceAmount>();
+			if (changeResourceAmount != null)
+			{
+				changeResourceAmount.Trigger();
+			}
+
 			DestroyUnit();
 		}
 	}

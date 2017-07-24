@@ -16,7 +16,11 @@ public class Bullet : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (this.target != null)
+		if (this.target == null)
+		{
+			DestroyImmediate(gameObject);
+		}
+		else
 		{
 			float distanceTravelled = (Time.time - this.startTime) * this.speed;
 			transform.position = Vector3.Lerp(this.startPosition, this.target.transform.position, distanceTravelled / this.totalDistance);
@@ -33,7 +37,7 @@ public class Bullet : MonoBehaviour
 					}
 				}
 				
-				Destroy(gameObject);
+				DestroyImmediate(gameObject);
 			}
 		}
 	}

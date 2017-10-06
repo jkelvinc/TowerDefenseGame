@@ -31,7 +31,10 @@ public class AttackTarget : MonoBehaviour
 		{
 			Vector3 direction = (this.currentTarget.transform.position - transform.position).normalized;
 			float rotationAngle = Mathf.Atan2 (direction.y, direction.x) * Mathf.Rad2Deg;
-			
+
+			// Unity uses the LHR to determine which side is the positive direction
+			// since the towers front are aligned with Y, when the tower rotates along Z from X, we have to substract 90f
+			// to realign with X
 			Quaternion rotation = Quaternion.AngleAxis(rotationAngle - 90f, Vector3.forward);
 			transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.fixedDeltaTime * 5f);
 
